@@ -17,7 +17,6 @@ import { LogIn } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { register } from "./action";
 import { useTransition } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function RegisterForm() {
@@ -86,15 +85,10 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <div className="flex flex-col gap-2">
-          <Button variant="link" className="text-xs p-0 flex justify-start">
-            <Link href="/sign-in">Already have an account, sign in here</Link>
-          </Button>
-          <Button disabled={isPending} variant="default" className="">
-            <LogIn className="size-5" />
-            {isPending ? "Loading..." : "Sign Up"}
-          </Button>
-        </div>
+        <Button disabled={isPending} variant="default" className="mt-5 w-full">
+          <LogIn className="size-5" />
+          {isPending ? "Loading" : "Sign Up"}
+        </Button>
       </form>
     </Form>
   );

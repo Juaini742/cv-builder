@@ -17,9 +17,10 @@ const formSections = [
   { key: "summary", label: "Summary", required: true },
   { key: "skill", label: "Skills", required: true },
   { key: "experience", label: "Experience", required: false },
+  { key: "projects", label: "Project", required: false },
   { key: "education", label: "Education", required: false },
   { key: "certification", label: "Certifications", required: false },
-  { key: "hobby", label: "Hobbies", required: false },
+  // { key: "hobby", label: "Hobbies", required: false },
   { key: "language", label: "Languages", required: false },
 ];
 
@@ -55,7 +56,7 @@ export default function ActiveFormControl({
       </div>
 
       <Card
-        className={`p-4 space-y-3 w-72 lg:w-1/3 h-fit translate-x-96 -mr-10 fixed z-10 top-24 right-5 lg:sticky lg:top-5 lg:translate-x-0 transition-all duration-300
+        className={`p-4 space-y-3 w-72 lg:w-1/3 h-fit translate-x-96 -mr-10 fixed z-10 top-24 right-5 lg:sticky lg:top-1 lg:translate-x-0 transition-all duration-300
         ${openActive ? "translate-x-0 mr-0" : "translate-x-full"}
         `}
       >

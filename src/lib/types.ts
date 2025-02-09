@@ -1,6 +1,8 @@
 import * as z from "zod";
 
-const requiredString = z.string().trim().min(1, "This field is required!");
+const requiredString = z.z
+  .string({ required_error: "This field is required." })
+  .min(1, "This field is required");
 
 export const registerSchema = z.object({
   email: z.string().email("Invalid format email"),
@@ -19,6 +21,27 @@ export type loginValue = z.infer<typeof loginSchema>;
 const ExperienceSchema = z
   .object({
     company: z.string().min(1, "Company name is required"),
+    position: z.string().min(1, "Position is required"),
+    startDate: z.date().refine((date) => date.getTime() <= Date.now(), {
+      message: "Start date cannot be in the future",
+    }),
+    endDate: z
+      .date()
+      .optional()
+      .refine((date) => !date || date.getTime() <= Date.now(), {
+        message: "End date cannot be in the future",
+      }),
+    current: z.boolean().optional(),
+    description: z.string().min(1, "Description is required"),
+  })
+  .refine((data) => !data.endDate || data.startDate <= data.endDate, {
+    message: "Start date must be before end date",
+    path: ["endDate"],
+  });
+
+const ProjectsSchema = z
+  .object({
+    name: z.string().min(1, "Company name is required"),
     position: z.string().min(1, "Position is required"),
     startDate: z.date().refine((date) => date.getTime() <= Date.now(), {
       message: "Start date cannot be in the future",
@@ -76,11 +99,28 @@ const LanguageSchema = z.object({
 
 export const CvSchema = z
   .object({
+    id: z.string().optional(),
     userId: z.string().optional(),
     fullName: z
       .string({ required_error: "This field is required." })
       .max(255, "Full name cannot exceed 255 characters.")
       .min(1, "This field is required"),
+    email: z
+      .string({ required_error: "This field is required." })
+      .max(255, "Full name cannot exceed 255 characters.")
+      .min(1, "This field is required"),
+    phoneNumber: z
+      .string({ required_error: "This field is required." })
+      .max(255, "Full name cannot exceed 255 characters.")
+      .min(10, "This field is required"),
+    linkedInURL: z
+      .string({ required_error: "This field is required." })
+      .url("Please enter a valid LinkedIn URL.")
+      .max(255, "URL cannot exceed 255 characters."),
+    portfolioURL: z
+      .string({ required_error: "This field is required." })
+      .url("Please enter a valid portfolio URL.")
+      .max(255, "URL cannot exceed 255 characters."),
     birthDay: z.date().refine((data) => data < new Date(), {
       message: "Birth day must be in the past",
     }),
@@ -104,6 +144,7 @@ export const CvSchema = z
       .min(1, "This field is required"),
     skills: z.array(z.string()),
     experience: z.array(ExperienceSchema),
+    projects: z.array(ProjectsSchema),
     education: z.array(EducationSchema),
     certifications: z.array(CertificationSchema).optional(),
     hobbies: z.array(HobbySchema).optional(),

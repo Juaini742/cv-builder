@@ -75,7 +75,7 @@ export function SidebarDemo({
                   link={link}
                   className={
                     pathname.split("/")[1] === link.href.split("/")[1]
-                      ? "border-b-2 border-black font-bold"
+                      ? "border-b-2 border-primary font-bold text-primary"
                       : ""
                   }
                 />

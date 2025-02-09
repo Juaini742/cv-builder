@@ -1,0 +1,1 @@
+export const EDITOR_SECRET_KEY = process.env.NEXT_PUBLIC_EDITOR_SECRET;

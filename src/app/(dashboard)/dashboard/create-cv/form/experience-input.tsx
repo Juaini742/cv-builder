@@ -14,6 +14,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
+import { EDITOR_SECRET_KEY } from "@/lib/constant";
+import { editorInit } from "@/lib/editor.init";
 import { CvValues } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Editor } from "@tinymce/tinymce-react";
@@ -217,15 +219,8 @@ export default function ExperienceInput() {
                   <FormItem>
                     <FormControl>
                       <Editor
-                        apiKey="uy7zzivjuaztfp3chlae5pgxl0ie1sge37dhetuplif3xu3m"
-                        init={{
-                          plugins: [
-                            "autolink",
-                            "link",
-                            "visualblocks",
-                            "wordcount",
-                          ],
-                        }}
+                        apiKey={EDITOR_SECRET_KEY}
+                        init={editorInit}
                         onChange={(e) => {
                           setValue(
                             `experience.${index}.description`,
@@ -242,7 +237,7 @@ export default function ExperienceInput() {
           </div>
         ))}
         <Button type="button" variant="secondary" onClick={handleAddExperience}>
-          Add Experience
+          Add New Experience
         </Button>
       </div>
     </div>

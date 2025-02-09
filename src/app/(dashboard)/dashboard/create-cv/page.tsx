@@ -1,13 +1,13 @@
-import { auth } from "@/auth";
 import React from "react";
 import CvForm from "./form/cv-form";
+import { GetCv } from "@/server-hooks/Get-CV";
 
 export default async function page() {
-  const user = await auth();
+  const cv = await GetCv();
 
   return (
     <div>
-      <CvForm userId={user?.user?.id} />
+      <CvForm cv={cv} />
     </div>
   );
 }

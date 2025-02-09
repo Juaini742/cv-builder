@@ -53,6 +53,19 @@ export default function BasicInput({ form, birthDay }: Props) {
             </FormItem>
           )}
         />
+        <FormField
+          name="email"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           name="birthDay"
@@ -98,13 +111,29 @@ export default function BasicInput({ form, birthDay }: Props) {
         />
 
         <FormField
-          name="nationality"
+          name="phoneNumber"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nationality</FormLabel>
+              <FormLabel>Phone Number</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your nationality" {...field} />
+                <div className="flex items-center border  rounded-md gap-2 pl-2 group focus-within:ring-1 focus-within:ring-primary">
+                  <span>+628</span>
+                  <Input
+                    placeholder="Enter your Phone number"
+                    className="border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                    value={field.value.replace(/^(\+?628)/, "")}
+                    onChange={(e) => {
+                      const newValue = e.target.value.replace(/\D/g, "");
+                      if (newValue.length > 13) return;
+                      form.setValue(
+                        "phoneNumber",
+                        newValue ? `+628${newValue}` : ""
+                      );
+                      field.onChange(`+628${newValue}`);
+                    }}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -161,6 +190,19 @@ export default function BasicInput({ form, birthDay }: Props) {
         />
 
         <FormField
+          name="nationality"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nationality</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your nationality" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
           name="address"
           control={form.control}
           render={({ field }) => (
@@ -168,6 +210,33 @@ export default function BasicInput({ form, birthDay }: Props) {
               <FormLabel>Address</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your address" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="linkedInURL"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Linked In URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter Your LInkedIn URL" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="portfolioURL"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Portfolio URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your portfolio URL" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

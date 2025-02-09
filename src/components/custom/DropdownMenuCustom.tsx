@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 interface Props {
   button: React.ReactElement;

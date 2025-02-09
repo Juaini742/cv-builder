@@ -7,6 +7,8 @@ import {
 import { Editor } from "@tinymce/tinymce-react";
 import { UseFormReturn, UseFormSetValue } from "react-hook-form";
 import { CvValues } from "@/lib/types";
+import { EDITOR_SECRET_KEY } from "@/lib/constant";
+import { editorInit } from "@/lib/editor.init";
 
 interface Props {
   form: UseFormReturn<CvValues>;
@@ -28,10 +30,8 @@ export default function SummaryInput({ form, setValue }: Props) {
           <FormItem>
             <FormControl>
               <Editor
-                apiKey="uy7zzivjuaztfp3chlae5pgxl0ie1sge37dhetuplif3xu3m"
-                init={{
-                  plugins: ["autolink", "link", "visualblocks", "wordcount"],
-                }}
+                apiKey={EDITOR_SECRET_KEY}
+                init={editorInit}
                 onChange={(e) => {
                   setValue("summary", e.target.getContent());
                 }}

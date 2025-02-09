@@ -245,7 +245,7 @@ export default function EducationInput() {
           </div>
         ))}
         <Button type="button" variant="secondary" onClick={handleAddEducation}>
-          Add Education
+          Add New Education
         </Button>
       </div>
     </div>

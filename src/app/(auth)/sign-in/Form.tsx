@@ -14,7 +14,6 @@ import { useToast } from "@/hooks/use-toast";
 import { loginSchema, loginValue } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn } from "lucide-react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useTransition } from "react";
 import { login } from "./action";
@@ -77,17 +76,10 @@ function LoginForm() {
             </FormItem>
           )}
         />
-        <div className="flex flex-col gap-2">
-          <Button variant="link" className="text-xs p-0 flex justify-start">
-            <Link href="/sign-up">
-              Don{"'"}t have an account, click here to sign up
-            </Link>
-          </Button>
-          <Button disabled={isPending} variant="default" className="">
-            <LogIn className="size-5" />
-            {isPending ? "Loading" : "Sign In"}
-          </Button>
-        </div>
+        <Button disabled={isPending} variant="default" className="mt-5 w-full">
+          <LogIn className="size-5" />
+          {isPending ? "Loading" : "Sign In"}
+        </Button>
       </form>
     </Form>
   );
