@@ -9,6 +9,7 @@ import { UseFormReturn, UseFormSetValue } from "react-hook-form";
 import { CvValues } from "@/lib/types";
 import { EDITOR_SECRET_KEY } from "@/lib/constant";
 import { editorInit } from "@/lib/editor.init";
+import { Card } from "@/components/ui/card";
 
 interface Props {
   form: UseFormReturn<CvValues>;
@@ -17,7 +18,7 @@ interface Props {
 
 export default function SummaryInput({ form, setValue }: Props) {
   return (
-    <div className="card p-6 shadow-md rounded-lg">
+    <Card className="p-5">
       <h2 className="text-lg font-bold mb-4">Professional Summary</h2>
       <p className="text-sm text-gray-600 mb-6">
         Provide a brief summary about yourself and your career goals.
@@ -26,15 +27,15 @@ export default function SummaryInput({ form, setValue }: Props) {
       <FormField
         name="summary"
         control={form.control}
-        render={({}) => (
+        render={({ field }) => (
           <FormItem>
             <FormControl>
               <Editor
                 apiKey={EDITOR_SECRET_KEY}
-                value={form.getValues().summary}
                 init={editorInit}
-                onChange={(e) => {
-                  setValue("summary", e.target.getContent());
+                value={field.value}
+                onEditorChange={(content) => {
+                  setValue("summary", content);
                 }}
               />
             </FormControl>
@@ -44,6 +45,6 @@ export default function SummaryInput({ form, setValue }: Props) {
       />
 
       <div className="my-10"></div>
-    </div>
+    </Card>
   );
 }

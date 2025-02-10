@@ -1,19 +1,22 @@
 import React from "react";
-import { SidebarDemo } from "./sidebar";
-import { auth } from "@/auth";
+import { SidebarDashboard } from "./sidebar";
+import { GetUser } from "@/server-hooks/Get-User";
+import { IUser } from "@/lib/interfaces";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await auth();
+  const user = await GetUser();
 
   console.log("LAYOUT USER:", user);
 
   return (
     <>
-      <SidebarDemo email={user?.user?.email}>{children}</SidebarDemo>
+      <SidebarDashboard user={user as IUser | null}>
+        {children}
+      </SidebarDashboard>
     </>
   );
 }

@@ -73,8 +73,8 @@ export default function ActiveFormControl({
               />
             </div>
           ))}
-          <Button className="w-full">View CV</Button>
-          <Button className="w-full">Download</Button>
+          {/* <Button className="w-full">View CV</Button>
+          <Button className="w-full">Download</Button> */}
         </div>
       </Card>
     </>

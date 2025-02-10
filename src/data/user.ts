@@ -4,6 +4,7 @@ export const getUserByEmail = async (email: string) => {
   try {
     const user = await prisma.user.findFirst({
       where: { email },
+      include: { Profile: true },
     });
 
     if (!user) {
@@ -20,6 +21,7 @@ export const getUserById = async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
+      include: { Profile: true },
     });
 
     if (!user) {

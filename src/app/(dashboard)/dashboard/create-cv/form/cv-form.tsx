@@ -37,12 +37,12 @@ export const initialActiveForm = {
   basic: true,
   summary: true,
   skill: true,
-  experience: false,
+  experiences: false,
   projects: false,
-  education: false,
-  certification: false,
+  educations: false,
+  certifications: false,
   hobby: false,
-  language: false,
+  languages: false,
 };
 
 export default function CvForm({ cv }: { cv: ICv[] }) {
@@ -193,12 +193,12 @@ export default function CvForm({ cv }: { cv: ICv[] }) {
                   control={form.control}
                 />
               )}
-              {activeForm.experience && <ExperienceInput />}
+              {activeForm.experiences && <ExperienceInput />}
               {activeForm.projects && <ProjectInput />}
-              {activeForm.education && <EducationInput />}
-              {activeForm.certification && <CertificationInput />}
+              {activeForm.educations && <EducationInput />}
+              {activeForm.certifications && <CertificationInput />}
               {activeForm.hobby && <HobbyInput />}
-              {activeForm.language && <LanguageInput />}
+              {activeForm.languages && <LanguageInput />}
               <ButtonWithLoading label="Save" isLoading={isPending} />
             </div>
             <ActiveFormControl
@@ -227,8 +227,8 @@ const duplicateValue = (form: UseFormReturn<CvValues>, singleCv: ICv) => {
   form.setValue("skills", singleCv.skills);
   form.setValue("summary", singleCv.summary);
   form.setValue(
-    "experience",
-    singleCv.experience.map((exp) => ({
+    "experiences",
+    singleCv.experiences.map((exp) => ({
       ...exp,
       startDate: new Date(exp.startDate),
       endDate: new Date(exp.endDate),
@@ -236,15 +236,15 @@ const duplicateValue = (form: UseFormReturn<CvValues>, singleCv: ICv) => {
   );
   form.setValue(
     "projects",
-    singleCv.project.map((project) => ({
+    singleCv.projects.map((project) => ({
       ...project,
       startDate: new Date(project.startDate),
       endDate: new Date(project.endDate),
     }))
   );
   form.setValue(
-    "education",
-    singleCv.education.map((edu) => ({
+    "educations",
+    singleCv.educations.map((edu) => ({
       ...edu,
       startDate: new Date(edu.startDate),
       endDate: new Date(edu.endDate),
@@ -269,9 +269,9 @@ const formDefaultValue = {
   address: "",
   summary: "",
   skills: [],
-  experience: [],
+  experiences: [],
   projects: [],
-  education: [],
+  educations: [],
   certifications: [],
   languages: [],
 };

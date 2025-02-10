@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { logout } from "./logout";
 import { usePathname, useRouter } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Particles } from "@/components/magicui/particles";
+import { IUser } from "@/lib/interfaces";
 
 const links = [
   {
@@ -40,15 +42,15 @@ const links = [
   },
 ];
 
-export function SidebarDemo({
+export function SidebarDashboard({
   children,
-  email,
+  user,
 }: {
   children: React.ReactNode;
-  email: string | null | undefined;
+  user: IUser | null;
 }) {
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -85,11 +87,14 @@ export function SidebarDemo({
           <div>
             <SidebarLink
               link={{
-                label: email || "",
+                label: user?.email || "",
                 href: "#",
                 icon: (
                   <Image
-                    src="https://assets.aceternity.com/manu.png"
+                    src={
+                      user?.Profile.image ??
+                      "https://assets.aceternity.com/manu.png"
+                    }
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
@@ -142,13 +147,21 @@ export const LogoIcon = () => {
   );
 };
 
-// Dummy dashboard component with content
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ScrollArea className="flex flex-1 rounded-tl-2xl  border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
-      <div className="flex-1 flex p-2  ">
-        <div className="p-2 md:p-10 rounded-tl-2xl flex flex-col gap-2 flex-1 w-full h-full">
-          {children}
+    <ScrollArea className="w-full h-full">
+      <div className="h-screen rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900">
+        <div className="flex-1 h-full">
+          <div className="p-2 md:p-10 rounded-tl-2xl flex-1 flex flex-col gap-2 w-full h-full relative z-20">
+            {children}
+          </div>
+          <Particles
+            className="absolute inset-0"
+            quantity={100}
+            ease={80}
+            color="#000000"
+            refresh
+          />
         </div>
       </div>
     </ScrollArea>

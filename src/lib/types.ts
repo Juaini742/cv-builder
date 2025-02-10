@@ -143,9 +143,9 @@ export const CvSchema = z
       .max(2000, "Summary cannot exceed 2000 characters.")
       .min(1, "This field is required"),
     skills: z.array(z.string()),
-    experience: z.array(ExperienceSchema),
+    experiences: z.array(ExperienceSchema),
     projects: z.array(ProjectsSchema),
-    education: z.array(EducationSchema),
+    educations: z.array(EducationSchema),
     certifications: z.array(CertificationSchema).optional(),
     hobbies: z.array(HobbySchema).optional(),
     languages: z.array(LanguageSchema).optional(),

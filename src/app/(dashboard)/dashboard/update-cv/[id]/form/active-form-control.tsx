@@ -5,29 +5,36 @@ import { Switch } from "@/components/ui/switch";
 import { Settings } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { initialActiveForm } from "../../../create-cv/form/cv-form";
+import DialogContainer from "@/components/custom/DialogContainer";
+import PreviewCv from "../../../cv/[id]/preview-cv";
+import { CvValues } from "@/lib/types";
+import { PDFViewer } from "@react-pdf/renderer";
 
 interface Props {
   activeForm: Record<string, boolean>;
   setActiveForm: Dispatch<SetStateAction<typeof initialActiveForm>>;
   toast: any;
+  id: string;
+  cv: CvValues;
 }
 
 const formSections = [
   { key: "basic", label: "Basic Info", required: true },
   { key: "summary", label: "Summary", required: true },
   { key: "skill", label: "Skills", required: true },
-  { key: "experience", label: "Experience", required: false },
+  { key: "experiences", label: "Experience", required: false },
   { key: "projects", label: "Project", required: false },
-  { key: "education", label: "Education", required: false },
-  { key: "certification", label: "Certifications", required: false },
+  { key: "educations", label: "Education", required: false },
+  { key: "certifications", label: "Certifications", required: false },
   // { key: "hobby", label: "Hobbies", required: false },
-  { key: "language", label: "Languages", required: false },
+  { key: "languages", label: "Languages", required: false },
 ];
 
 export default function ActiveFormControl({
   activeForm,
   setActiveForm,
   toast,
+  cv,
 }: Props) {
   const [openActive, setOpenActive] = useState<boolean>(false);
 
@@ -43,7 +50,7 @@ export default function ActiveFormControl({
 
     setActiveForm((prev) => ({
       ...prev,
-      [key as keyof typeof prev]: !prev[key as keyof typeof prev],
+      [key]: !prev[key as keyof typeof prev],
     }));
   };
 
@@ -68,13 +75,30 @@ export default function ActiveFormControl({
                 {label}
               </span>
               <Switch
-                checked={activeForm[key]}
+                checked={activeForm[key as keyof typeof activeForm]}
                 onCheckedChange={() => handleToggle(key, required)}
               />
             </div>
           ))}
-          <Button className="w-full">View CV</Button>
-          <Button className="w-full">Download</Button>
+
+          <DialogContainer
+            button={
+              <Button type="button" className="w-full">
+                View CV
+              </Button>
+            }
+            content={
+              <div className="w-[20rem] lg:w-[50rem] flex justify-center">
+                <PDFViewer
+                  className="rounded-lg w-full h-[20rem] lg:h-[48rem] overflow-hidden"
+                  showToolbar={false}
+                >
+                  <PreviewCv cv={cv} />
+                </PDFViewer>
+              </div>
+            }
+          />
+          {/* <Button className="w-full">Download</Button> */}
         </div>
       </Card>
     </>

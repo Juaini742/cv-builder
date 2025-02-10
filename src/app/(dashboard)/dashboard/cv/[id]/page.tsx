@@ -17,17 +17,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ChevronsLeft, FileDown, Loader, SquarePen } from "lucide-react";
-
-const types = [
-  {
-    name: "ATS1",
-    label: "ATS 1",
-  },
-  {
-    name: "ATS2",
-    label: "ATS 2",
-  },
-];
+import { motion } from "framer-motion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Card } from "@/components/ui/card";
 
 export default function CVDetail() {
   const router = useRouter();
@@ -39,44 +36,68 @@ export default function CVDetail() {
     return <LoadingComponent />;
   }
 
+  console.log(cv);
+
   return (
-    <div className="flex flex-col items-center px-6 space-y-6 min-h-screen py-8">
-      {/* Download Button */}
-      <div className="w-full flex  gap-2 justify-between items-center p-3 shadow rounded-md">
+    <div className="flex flex-col items-center relative">
+      <Card className="fixed w-fit bottom-10 p-3 flex gap-2">
         <div className="flex gap-3 items-center">
-          <Button type="button" onClick={() => router.push("/dashboard")}>
-            <ChevronsLeft className="size-6" />
-          </Button>
-          <Button
-            type="button"
-            variant="warning"
-            onClick={() => router.push(`/dashboard/update-cv/${param.id}`)}
-          >
-            <SquarePen className="size-6" />
-          </Button>
+          <TooltipWrapper label="Back to Dashboard">
+            <Button onClick={() => router.push("/dashboard")} variant="outline">
+              <ChevronsLeft className="size-5" />
+            </Button>
+          </TooltipWrapper>
+
+          <TooltipWrapper label="Edit CV">
+            <Button
+              onClick={() => router.push(`/dashboard/update-cv/${cv.id}`)}
+              variant="warning"
+            >
+              <SquarePen className="size-5" />
+            </Button>
+          </TooltipWrapper>
         </div>
+
         <div className="flex gap-3 items-center">
           <Select onValueChange={setType} defaultValue={type}>
-            <SelectTrigger>
+            <SelectTrigger className="w-40">
               <SelectValue placeholder="Select Template" />
             </SelectTrigger>
             <SelectContent>
-              {types.map((item) => (
-                <SelectItem key={item.name} value={item.name}>
-                  {item.label}
-                </SelectItem>
-              ))}
+              <SelectItem value="ATS1">ATS Template 1</SelectItem>
+              <SelectItem value="ATS2">ATS Template 2</SelectItem>
             </SelectContent>
           </Select>
-          <RenderSelectedDownloadPDF type={type} cv={cv} />
-        </div>
-      </div>
 
-      {/* Preview CV */}
+          <TooltipWrapper label="Download PDF">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <RenderSelectedDownloadPDF type={type} cv={cv} />
+            </motion.div>
+          </TooltipWrapper>
+        </div>
+      </Card>
+
       <RenderSelectedTemplate type={type} cv={cv} />
     </div>
   );
 }
+
+const TooltipWrapper = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
 
 const RenderSelectedDownloadPDF = ({ type, cv }: { type: string; cv: ICv }) => {
   return (
@@ -146,11 +167,9 @@ const RenderSelectedTemplate = ({ type, cv }: { type: string; cv: ICv }) => {
 
 const RenderPDF1 = ({ cv }: { cv: ICv }) => {
   return (
-    <div className="w-full max-w-4xl bg-white shadow-xl rounded-lg overflow-hidden p-4 ">
+    <div className="w-full max-w-xs sm:max-w-md md:max-w-4xl bg-white shadow-xl rounded-lg overflow-hidden p-2 sm:p-4">
       <PDFViewer
-        width="100%"
-        style={{ height: "85vh" }}
-        className=" rounded-lg"
+        className="rounded-lg w-full h-[48rem] overflow-hidden"
         showToolbar={false}
       >
         <PreviewCv cv={cv} />
@@ -161,11 +180,9 @@ const RenderPDF1 = ({ cv }: { cv: ICv }) => {
 
 const RenderPDF2 = ({ cv }: { cv: ICv }) => {
   return (
-    <div className="w-full max-w-4xl bg-white shadow-xl rounded-lg overflow-hidden p-4 ">
+    <div className="w-full max-w-xs sm:max-w-md md:max-w-4xl bg-white shadow-xl rounded-lg overflow-hidden p-2 sm:p-4">
       <PDFViewer
-        width="100%"
-        style={{ height: "85vh" }}
-        className=" rounded-lg"
+        className="rounded-lg w-full h-[48rem] overflow-hidden"
         showToolbar={false}
       >
         <PreviewCv2 cv={cv} />
@@ -177,7 +194,6 @@ const RenderPDF2 = ({ cv }: { cv: ICv }) => {
 const LoadingComponent = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4 p-6">
-      <Skeleton className="w-full h-12 rounded-lg" />
       <Skeleton className="w-full h-[80vh] rounded-lg" />
     </div>
   );

@@ -1,11 +1,3 @@
-import {
-  ICertification,
-  ICv,
-  IEducation,
-  IExperience,
-  ILanguage,
-  IProject,
-} from "@/lib/interfaces";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -38,16 +30,7 @@ export async function GET(
       );
     }
 
-    const formattedCv: ICv = {
-      ...result,
-      experience: result.experience as unknown as IExperience[],
-      education: result.education as unknown as IEducation[],
-      certifications: result.certifications as unknown as ICertification[],
-      languages: result.languages as unknown as ILanguage[],
-      project: result.project as unknown as IProject[],
-    };
-
-    return NextResponse.json(formattedCv, { status: 200 });
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

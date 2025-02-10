@@ -12,3 +12,7 @@ const GET = async (url: string) => {
 export const fetchSingleCvData = async (id: string) => {
   return GET(`/api/cv/${id}`);
 };
+
+export const fetchUserData = async () => {
+  return GET(`/api/user`);
+};

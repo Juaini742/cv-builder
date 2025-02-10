@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CvValues } from "@/lib/types";
@@ -35,8 +36,8 @@ export default function CertificationInput() {
   };
 
   return (
-    <div className="card p-6 shadow-md rounded-lg">
-      <div className="">
+    <Card className="p-5">
+      <div>
         <h2 className="text-lg font-bold mb-4">Certification</h2>
         <p className="text-sm text-gray-600 mb-6">
           Define all of your certification
@@ -109,6 +110,6 @@ export default function CertificationInput() {
           Add New Certification
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }

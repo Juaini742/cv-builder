@@ -20,11 +20,11 @@ export const GetCv = async () => {
 
   const formattedCvs = result.map((cv) => ({
     ...cv,
-    experience: cv.experience as unknown as IExperience[],
-    education: cv.education as unknown as IEducation[],
+    experiences: cv.experiences as unknown as IExperience[],
+    educations: cv.educations as unknown as IEducation[],
     certifications: cv.certifications as unknown as ICertification[],
     languages: cv.languages as unknown as ILanguage[],
-    project: cv.project as unknown as IProject[],
+    projects: cv.projects as unknown as IProject[],
   }));
 
   return formattedCvs;

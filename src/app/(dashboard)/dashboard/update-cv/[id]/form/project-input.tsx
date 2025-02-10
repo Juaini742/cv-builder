@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Card } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -46,7 +47,7 @@ export default function ProjectInput() {
   };
 
   return (
-    <div className="card p-6 shadow-md rounded-lg">
+    <Card className="p-5">
       <div className="flex justify-between">
         <div className="">
           <h2 className="text-lg font-bold mb-4">Projects</h2>
@@ -217,18 +218,15 @@ export default function ProjectInput() {
               <FormField
                 name={`projects.${index}.description`}
                 control={control}
-                render={({}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Editor
                         apiKey={EDITOR_SECRET_KEY}
-                        value={watch(`projects.${index}.description`)}
                         init={editorInit}
-                        onChange={(e) => {
-                          setValue(
-                            `projects.${index}.description`,
-                            e.target.getContent()
-                          );
+                        value={field.value}
+                        onEditorChange={(content) => {
+                          setValue(`projects.${index}.description`, content);
                         }}
                       />
                     </FormControl>
@@ -243,6 +241,6 @@ export default function ProjectInput() {
           Add New Project
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }

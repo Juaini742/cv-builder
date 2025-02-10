@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -68,7 +69,7 @@ export function SkillCombobox({ setValue, values, control }: Props) {
   };
 
   return (
-    <div className="card p-6 shadow-md rounded-lg">
+    <Card className="p-5">
       <h2 className="text-lg font-bold mb-2">Skills</h2>
       <div className="relative w-full">
         <FormField
@@ -135,6 +136,6 @@ export function SkillCombobox({ setValue, values, control }: Props) {
           ))}
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

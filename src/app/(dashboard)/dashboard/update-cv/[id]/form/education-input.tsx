@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Card } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -51,7 +52,7 @@ export default function EducationInput() {
   const { control, setValue, watch } = useFormContext<CvValues>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "education",
+    name: "educations",
   });
 
   const handleAddEducation = () => append(initialValue);
@@ -60,10 +61,8 @@ export default function EducationInput() {
     remove(index);
   };
 
-  console.log("VALUE EDUCATION:", watch("education"));
-
   return (
-    <div className="card p-6 shadow-md rounded-lg">
+    <Card className="p-5">
       <div className="flex justify-between">
         <div className="">
           <h2 className="text-lg font-bold mb-4">Educations</h2>
@@ -89,7 +88,7 @@ export default function EducationInput() {
             </div>
             <div>
               <FormField
-                name={`education.${index}.degree`}
+                name={`educations.${index}.degree`}
                 control={control}
                 render={({ field }) => (
                   <FormItem>
@@ -97,7 +96,7 @@ export default function EducationInput() {
                     <FormControl>
                       <Select
                         onValueChange={(value: string) =>
-                          setValue(`education.${index}.degree`, value)
+                          setValue(`educations.${index}.degree`, value)
                         }
                         value={field.value}
                       >
@@ -120,7 +119,7 @@ export default function EducationInput() {
             </div>
             <div>
               <FormField
-                name={`education.${index}.university`}
+                name={`educations.${index}.university`}
                 control={control}
                 render={({ field }) => (
                   <FormItem>
@@ -136,7 +135,7 @@ export default function EducationInput() {
             <div className="flex gap-2 items-end w-full">
               <div className="flex-1">
                 <FormField
-                  name={`education.${index}.startDate`}
+                  name={`educations.${index}.startDate`}
                   control={control}
                   render={({ field }) => (
                     <FormItem>
@@ -180,7 +179,7 @@ export default function EducationInput() {
               </div>
               <div className="flex-1">
                 <FormField
-                  name={`education.${index}.endDate`}
+                  name={`educations.${index}.endDate`}
                   control={control}
                   render={({ field }) => (
                     <FormItem>
@@ -190,7 +189,7 @@ export default function EducationInput() {
                           <PopoverTrigger asChild>
                             <Button
                               variant={"outline"}
-                              disabled={watch(`education.${index}.current`)}
+                              disabled={watch(`educations.${index}.current`)}
                               className={cn(
                                 "w-full justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
@@ -227,7 +226,7 @@ export default function EducationInput() {
             <div className="flex items-center justify-between">
               <span
                 className={`text-sm ${
-                  watch(`education.${index}.current`)
+                  watch(`educations.${index}.current`)
                     ? "font-semibold"
                     : "text-muted-foreground"
                 }`}
@@ -235,11 +234,11 @@ export default function EducationInput() {
                 Current
               </span>
               <Switch
-                checked={watch(`education.${index}.current`)}
+                checked={watch(`educations.${index}.current`)}
                 onCheckedChange={() => {
                   setValue(
-                    `education.${index}.current`,
-                    !watch(`education.${index}.current`)
+                    `educations.${index}.current`,
+                    !watch(`educations.${index}.current`)
                   );
                 }}
               />
@@ -250,6 +249,6 @@ export default function EducationInput() {
           Add New Education
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Card } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -33,7 +34,7 @@ interface Props {
 
 export default function BasicInput({ form, birthDay }: Props) {
   return (
-    <div className="card p-6 shadow-md rounded-lg mt-10">
+    <Card className="p-5 mt-10">
       <h2 className="text-lg font-bold mb-4">Personal Information</h2>
       <p className="text-sm text-gray-600 mb-6">
         Please provide your personal details accurately.
@@ -243,6 +244,6 @@ export default function BasicInput({ form, birthDay }: Props) {
           )}
         />
       </div>
-    </div>
+    </Card>
   );
 }

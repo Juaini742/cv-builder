@@ -52,8 +52,6 @@ export default function CvForm({ id, cv }: Props) {
       });
     }
 
-    console.log("LAST RESULT VALUE:", value);
-
     startTransition(() => {
       onSubmitAction(value).then(async (res) => {
         if (res.error) {
@@ -74,8 +72,6 @@ export default function CvForm({ id, cv }: Props) {
     });
   };
 
-  console.log("error:", form.formState.errors);
-
   return (
     <Form {...form}>
       <form
@@ -85,7 +81,7 @@ export default function CvForm({ id, cv }: Props) {
         <Button
           type="button"
           onClick={() => router.back()}
-          className="absolute -top-5 left-5"
+          className="absolute -top-10 left-5"
         >
           <MoveLeft className="size-6" />
           back
@@ -106,18 +102,20 @@ export default function CvForm({ id, cv }: Props) {
                 control={form.control}
               />
             )}
-            {activeForm.experience && <ExperienceInput />}
+            {activeForm.experiences && <ExperienceInput />}
             {activeForm.projects && <ProjectInput />}
-            {activeForm.education && <EducationInput />}
-            {activeForm.certification && <CertificationInput />}
+            {activeForm.educations && <EducationInput />}
+            {activeForm.certifications && <CertificationInput />}
             {activeForm.hobby && <HobbyInput />}
-            {activeForm.language && <LanguageInput />}
+            {activeForm.languages && <LanguageInput />}
             <ButtonWithLoading label="Save Update" isLoading={isPending} />
           </div>
           <ActiveFormControl
             activeForm={activeForm}
             setActiveForm={setActiveForm}
             toast={toast}
+            id={id}
+            cv={form.getValues()}
           />
         </div>
       </form>
@@ -140,22 +138,22 @@ const formDefaultValue = (id: string, cv: ICv | null) => {
     address: cv?.address || "",
     summary: cv?.summary || "",
     skills: cv?.skills || [],
-    experience: cv?.experience
-      ? cv.experience.map((exp) => ({
+    experiences: cv?.experiences
+      ? cv.experiences.map((exp) => ({
           ...exp,
           startDate: exp.startDate ? new Date(exp.startDate) : undefined,
           endDate: exp.endDate ? new Date(exp.endDate) : undefined,
         }))
       : [],
-    projects: cv?.project
-      ? cv.project.map((exp) => ({
+    projects: cv?.projects
+      ? cv.projects.map((exp) => ({
           ...exp,
           startDate: exp.startDate ? new Date(exp.startDate) : undefined,
           endDate: exp.endDate ? new Date(exp.endDate) : undefined,
         }))
       : [],
-    education: cv?.education
-      ? cv.education.map((exp) => ({
+    educations: cv?.educations
+      ? cv.educations.map((exp) => ({
           ...exp,
           startDate: exp.startDate ? new Date(exp.startDate) : undefined,
           endDate: exp.endDate ? new Date(exp.endDate) : undefined,
@@ -171,11 +169,11 @@ const activeFunction = (cv: ICv | null) => {
     basic: true,
     summary: true,
     skill: true,
-    experience: cv?.experience.length !== 0 ? true : false,
-    projects: cv?.project.length !== 0 ? true : false,
-    education: cv?.education.length !== 0 ? true : false,
-    certification: cv?.certifications.length !== 0 ? true : false,
+    experiences: cv?.experiences.length !== 0 ? true : false,
+    projects: cv?.projects.length !== 0 ? true : false,
+    educations: cv?.educations.length !== 0 ? true : false,
+    certifications: cv?.certifications.length !== 0 ? true : false,
     hobby: false,
-    language: cv?.languages.length !== 0 ? true : false,
+    languages: cv?.languages.length !== 0 ? true : false,
   };
 };

@@ -32,9 +32,9 @@ export const onSubmitAction = async (values: CvValues) => {
       portfolioURL,
       summary,
       skills,
-      experience,
+      experiences,
       projects,
-      education,
+      educations,
       certifications,
       languages,
     } = result.data;
@@ -57,11 +57,11 @@ export const onSubmitAction = async (values: CvValues) => {
         portfolioURL,
         summary,
         skills: (skills ?? []) as unknown as string[],
-        experience: (experience ?? []) as unknown as InputJsonValue[],
-        education: (education ?? []) as unknown as InputJsonValue[],
+        experiences: (experiences ?? []) as unknown as InputJsonValue[],
+        educations: (educations ?? []) as unknown as InputJsonValue[],
         certifications: (certifications ?? []) as unknown as InputJsonValue[],
         languages: (languages ?? []) as unknown as InputJsonValue[],
-        project: (projects ?? []) as unknown as InputJsonValue[],
+        projects: (projects ?? []) as unknown as InputJsonValue[],
       },
     });
 

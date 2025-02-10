@@ -1,36 +1,50 @@
 export interface IUser {
   id: string;
-  username: string;
   email: string;
   password: string;
+  Profile: Profile;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Profile {
+  id: string;
+  name?: string;
+  image?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  github?: string;
+  portfolio?: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IExperience {
   company: string;
   position: string;
-  startDate: string;
-  endDate: string;
-  current: boolean;
+  startDate: string | Date;
+  endDate?: string | undefined;
+  current?: boolean;
   description: string;
 }
 
 export interface IProject {
   name: string;
   position: string;
-  startDate: string;
-  endDate: string;
-  current: boolean;
+  startDate: string | Date;
+  endDate?: string | undefined;
+  current?: boolean;
   description: string;
 }
 
 export interface IEducation {
   degree: string;
   university: string;
-  startDate: string;
-  endDate: string;
-  current: boolean;
+  startDate: string | Date;
+  endDate?: Date;
+  current?: boolean;
 }
 
 export interface ICertification {
@@ -60,11 +74,11 @@ export interface ICv {
   portfolioURL: string;
   summary: string;
   skills: string[];
-  experience: IExperience[];
-  education: IEducation[];
+  experiences: IExperience[];
+  educations: IEducation[];
   certifications: ICertification[];
   languages: ILanguage[];
-  project: IProject[];
+  projects: IProject[];
   createdAt: Date;
   updatedAt: Date;
 }

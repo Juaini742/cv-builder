@@ -147,8 +147,8 @@ export default function PreviewCv2({ cv }: Props) {
         {/* Experience */}
         <View style={styles.section}>
           <Text style={styles.subHeader}>EXPERIENCE & CAREER HISTORY</Text>
-          {cv?.experience.length !== 0 &&
-            cv?.experience.map((exp, index) => (
+          {cv?.experiences.length !== 0 &&
+            cv?.experiences.map((exp, index) => (
               <View key={index} style={{ marginVertical: 5 }}>
                 <View
                   style={{
@@ -190,8 +190,8 @@ export default function PreviewCv2({ cv }: Props) {
             ))}
 
           {/* PROJECTS */}
-          {cv?.project.length !== 0 &&
-            cv?.project.map((project, index) => (
+          {cv?.projects.length !== 0 &&
+            cv?.projects.map((project, index) => (
               <View key={index} style={{ marginBottom: 5 }}>
                 <View
                   style={{
@@ -236,10 +236,10 @@ export default function PreviewCv2({ cv }: Props) {
         </View>
 
         {/* Education */}
-        {cv?.education.length !== 0 && (
+        {cv?.educations.length !== 0 && (
           <View style={[styles.section, { marginBottom: 10 }]}>
             <Text style={styles.subHeader}>EDUCATIONS</Text>
-            {cv?.education.map((edu, index) => (
+            {cv?.educations.map((edu, index) => (
               <View key={index} style={{ marginVertical: 5 }}>
                 <View
                   style={{

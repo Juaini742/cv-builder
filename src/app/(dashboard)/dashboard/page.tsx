@@ -1,30 +1,21 @@
 import React from "react";
-import Link from "next/link";
-import CvList from "./cv-list";
 import { auth } from "@/auth";
+import DashboardCvList from "./dashboard-cv-list";
 import { GetCv } from "@/server-hooks/Get-CV";
-import { Button } from "@/components/ui/button";
-import { BoxReveal } from "@/components/ui/box-reveal";
+
+import DashboardHeader from "./dashboard-header";
+import DashboardStats from "./dashboard-stats";
+import EmptyCv from "./empty-cv";
 
 export default async function page() {
   const user = await auth();
-  const formattedCvs = await GetCv();
-
-  console.log("formattedCvs:", formattedCvs);
+  const cvs = await GetCv();
 
   return (
-    <div>
-      <div className="flex justify-between">
-        <BoxReveal boxColor="#5046e6" duration={0.5}>
-          <h1 className="py-2 rounded-md text-lg mb-4">
-            Welcome <span className="font-bold">{user?.user?.email}</span>
-          </h1>
-        </BoxReveal>
-        <Link href="/dashboard/create-cv">
-          <Button>Create Cv</Button>
-        </Link>
-      </div>
-      {formattedCvs.length > 0 && <CvList cv={formattedCvs} />}
+    <div className="flex flex-col gap-5">
+      <DashboardHeader user={user} />
+      <DashboardStats totalCvs={cvs.length.toString()} />
+      {cvs.length > 0 ? <DashboardCvList cv={cvs} /> : <EmptyCv />}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Card } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -46,7 +47,7 @@ export default function ExperienceInput() {
   };
 
   return (
-    <div className="card p-6 shadow-md rounded-lg">
+    <Card className="p-5">
       <div className="flex justify-between">
         <div className="">
           <h2 className="text-lg font-bold mb-4">Experiences</h2>
@@ -240,6 +241,6 @@ export default function ExperienceInput() {
           Add New Experience
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }
