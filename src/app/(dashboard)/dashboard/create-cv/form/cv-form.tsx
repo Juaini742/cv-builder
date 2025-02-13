@@ -118,12 +118,10 @@ export default function CvForm({ cv }: { cv: ICv[] }) {
           description: res.message,
           variant: "default",
         });
-        router.push(`/dashboard/cv/${res?.data?.id}`);
+        router.push(`/dashboard`);
       });
     });
   };
-
-  console.log("error:", form.formState.errors);
 
   return (
     <>
@@ -151,7 +149,7 @@ export default function CvForm({ cv }: { cv: ICv[] }) {
                   </Button>
                 }
                 content={
-                  <div>
+                  <div className="w-96">
                     <Select onValueChange={setDuplicate}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Choose CV" />
@@ -228,26 +226,26 @@ const duplicateValue = (form: UseFormReturn<CvValues>, singleCv: ICv) => {
   form.setValue("summary", singleCv.summary);
   form.setValue(
     "experiences",
-    singleCv.experiences.map((exp) => ({
-      ...exp,
-      startDate: new Date(exp.startDate),
-      endDate: new Date(exp.endDate),
+    singleCv.experiences.map((item) => ({
+      ...item,
+      startDate: new Date(item.startDate),
+      endDate: item.endDate ? new Date(item.endDate) : undefined,
     }))
   );
   form.setValue(
     "projects",
-    singleCv.projects.map((project) => ({
-      ...project,
-      startDate: new Date(project.startDate),
-      endDate: new Date(project.endDate),
+    singleCv.projects.map((item) => ({
+      ...item,
+      startDate: new Date(item.startDate),
+      endDate: item.endDate ? new Date(item.endDate) : undefined,
     }))
   );
   form.setValue(
     "educations",
-    singleCv.educations.map((edu) => ({
-      ...edu,
-      startDate: new Date(edu.startDate),
-      endDate: new Date(edu.endDate),
+    singleCv.educations.map((item) => ({
+      ...item,
+      startDate: new Date(item.startDate),
+      endDate: item.endDate ? new Date(item.endDate) : undefined,
     }))
   );
   form.setValue("certifications", singleCv.certifications);

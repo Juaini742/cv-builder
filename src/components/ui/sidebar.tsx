@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
@@ -8,7 +9,7 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 interface Links {
   label: string;
   href: string;
-  icon: React.JSX.Element | React.ReactNode;
+  icon: any;
 }
 
 interface SidebarContextProps {
@@ -158,10 +159,12 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  active,
   ...props
 }: {
   link: Links;
   className?: string;
+  active?: boolean;
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
@@ -174,14 +177,23 @@ export const SidebarLink = ({
       )}
       {...props}
     >
-      {link.icon}
+      {React.isValidElement(link.icon) ? (
+        link.icon
+      ) : typeof link.icon === "object" ? (
+        <link.icon
+          className={cn(
+            "size-5 text-neutral-800 dark:text-neutral-200",
+            active && "text-white pl-1"
+          )}
+        />
+      ) : null}
 
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
         {link.label}
       </motion.span>

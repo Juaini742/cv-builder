@@ -22,11 +22,17 @@ export default async function ProfilePage() {
       <Card className="relative z-10 max-w-3xl w-full bg-white shadow-lg rounded-xl p-6">
         <CardHeader className="flex flex-col items-center text-center">
           <Avatar className="w-24 h-24">
-            <AvatarImage src={user?.Profile?.image ?? ""} alt="User Profile" />
+            <AvatarImage
+              src={user?.Profile?.image ?? ""}
+              alt="User Profile"
+              className="w-full h-full object-cover"
+            />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
-          <CardTitle className="mt-4 text-xl font-bold">John Doe</CardTitle>
-          <p className="text-gray-500">Software Engineer</p>
+          <CardTitle className="mt-4 text-xl font-bold">
+            {user?.Profile?.name}
+          </CardTitle>
+          <p className="text-gray-500">{user?.Profile?.position}</p>
         </CardHeader>
 
         <CardContent className="space-y-4">
@@ -74,9 +80,11 @@ export default async function ProfilePage() {
 
         {/* Edit Button */}
         <div className="flex justify-center mt-4">
-          <Button variant="outline" className="flex items-center gap-2">
-            <Pencil size={16} /> Edit Profile
-          </Button>
+          <Link href={"/profile/update-user"}>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Pencil size={16} /> Edit Profile
+            </Button>
+          </Link>
         </div>
       </Card>
     </div>

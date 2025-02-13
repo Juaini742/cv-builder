@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronsLeft, FileDown, Loader, SquarePen } from "lucide-react";
+import { ChevronsLeft, FileDown, SquarePen } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -114,7 +114,7 @@ const RenderDownloadPDF1 = ({ cv }: { cv: ICv }) => {
       document={<PreviewCv cv={cv} />}
       fileName={`${cv.fullName}.pdf`}
     >
-      {({ loading }: { loading: boolean }) => (
+      {/* {({ loading }: { loading: boolean }) => (
         <Button
           disabled={loading}
           className={`transition ${
@@ -127,7 +127,10 @@ const RenderDownloadPDF1 = ({ cv }: { cv: ICv }) => {
             <FileDown className="size-6" />
           )}
         </Button>
-      )}
+      )} */}
+      <Button className="cursor-not-allowed bg-gray-400">
+        <FileDown className="size-6" />
+      </Button>
     </PDFDownloadLink>
   );
 };
@@ -138,20 +141,9 @@ const RenderDownloadPDF2 = ({ cv }: { cv: ICv }) => {
       document={<PreviewCv2 cv={cv} />}
       fileName={`${cv.fullName}.pdf`}
     >
-      {({ loading }: { loading: boolean }) => (
-        <Button
-          disabled={loading}
-          className={`transition ${
-            loading && "cursor-not-allowed bg-gray-400"
-          }`}
-        >
-          {loading ? (
-            <Loader className="size-6 animate-spin" />
-          ) : (
-            <FileDown className="size-6" />
-          )}
-        </Button>
-      )}
+      <Button className="cursor-not-allowed bg-gray-400">
+        <FileDown className="size-6" />
+      </Button>
     </PDFDownloadLink>
   );
 };

@@ -76,7 +76,7 @@ export default function CvForm({ id, cv }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 relative"
+        className="space-y-8 relative mb-20"
       >
         <Button
           type="button"

@@ -18,6 +18,47 @@ export const loginSchema = z.object({
 
 export type loginValue = z.infer<typeof loginSchema>;
 
+export const UpdateUserSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Name cannot exceed 100 characters"),
+  position: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Name cannot exceed 100 characters"),
+  image: z.string().optional(),
+  imgPreview: z.string().optional(),
+  phone: z
+    .string({ required_error: "This field is required." })
+    .max(255, "Full name cannot exceed 255 characters.")
+    .min(10, "This field is required"),
+  address: z
+    .string()
+    .min(1, "Address is required")
+    .max(255, "Address cannot exceed 255 characters"),
+  linkedin: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^https?:\/\/.+$/.test(val), {
+      message: "Invalid LinkedIn URL",
+    }),
+  github: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^https?:\/\/.+$/.test(val), {
+      message: "Invalid GitHub URL",
+    }),
+  portfolio: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^https?:\/\/.+$/.test(val), {
+      message: "Invalid Portfolio URL",
+    }),
+});
+
+export type UpdateUserValues = z.infer<typeof UpdateUserSchema>;
+
 const ExperienceSchema = z
   .object({
     company: z.string().min(1, "Company name is required"),

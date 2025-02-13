@@ -7,6 +7,7 @@ export const protectedRoutes = [
   "/dashboard/cv/[id]",
   "/dashboard/create-cv",
   "/profile",
+  "/profile/update-user",
   "/setting",
   ...protectedApi,
 ];

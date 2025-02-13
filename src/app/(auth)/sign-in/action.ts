@@ -17,7 +17,11 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
     const user = await getUserByEmail(email);
 
     if (!user) {
-      return { success: null, error: "User not found", role: null };
+      return {
+        success: null,
+        error: "User unregistered, Please sign up first",
+        role: null,
+      };
     }
 
     if (user) {

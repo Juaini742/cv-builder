@@ -276,14 +276,16 @@ export default function PreviewCv({ cv }: Props) {
               alignItems: "center",
             }}
           >
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 12,
-              }}
-            >
-              Languages:{" "}
-            </Text>
+            {cv?.languages && cv?.languages.length !== 0 && (
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                }}
+              >
+                Languages:{" "}
+              </Text>
+            )}
             {cv?.languages?.map((lang, index) => (
               <Text key={index} style={styles.listItem}>
                 {lang.name} ({lang.proficiency}){" "}

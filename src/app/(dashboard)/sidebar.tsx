@@ -22,23 +22,17 @@ const links = [
   {
     label: "Dashboard",
     href: "/dashboard",
-    icon: (
-      <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: IconBrandTabler,
   },
   {
     label: "Profile",
     href: "/profile",
-    icon: (
-      <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: IconUserBolt,
   },
   {
     label: "Settings",
     href: "/setting",
-    icon: (
-      <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: IconSettings,
   },
 ];
 
@@ -77,9 +71,10 @@ export function SidebarDashboard({
                   link={link}
                   className={
                     pathname.split("/")[1] === link.href.split("/")[1]
-                      ? "border-b-2 border-primary font-bold text-primary"
+                      ? " font-bold text-white bg-primary rounded-md"
                       : ""
                   }
+                  active={pathname.split("/")[1] === link.href.split("/")[1]}
                 />
               ))}
             </div>

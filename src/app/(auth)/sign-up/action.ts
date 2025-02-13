@@ -23,10 +23,16 @@ export async function register(credentials: registerValue) {
       };
     }
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         email,
         password: passwordHashing,
+      },
+    });
+
+    await prisma.profile.create({
+      data: {
+        userId: user.id,
       },
     });
 

@@ -22,7 +22,3 @@ export default function page() {
     </>
   );
 }
-
-{
-  /* <p>A results-driven <strong>Fulll-Stack</strong> and <strong>Android Software Engineer</strong> with over 1 year of experience in developing dynamic web and mobile applications. Proficient in <strong>HTML, CSS, JavaScript, TypeScript, Java</strong>, and frameworks like<strong> React Native, React Js and Angular, Spring-boot, VueJs</strong>. I possess strong skills in database management using <strong>MongoDB, MySQL,</strong> and <strong>PostgreSQL</strong>. I have successfully led a project team of five, ensuring that the project ran smoothly and was completed on time, while also verifying that all features <em>functioned effectively</em>. With a proven ability to collaborate effectively in cross-functional teams, <em><strong>I bridge front-end design with back-end functionality</strong></em>. Additionally, I actively manage 30+ GitHub repositories, showcasing my commitment to continuous learning and community engagement. <strong>BARU</strong></p> */
-}

@@ -24,6 +24,7 @@ model User {
 model Profile {
   id        String   @id @default(cuid())
   name      String?
+  position  String?
   image     String?
   phone     String?
   address   String?

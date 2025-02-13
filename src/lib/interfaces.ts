@@ -10,6 +10,7 @@ export interface IUser {
 export interface Profile {
   id: string;
   name?: string;
+  position?: string;
   image?: string;
   phone?: string;
   address?: string;

@@ -33,16 +33,16 @@ const initialValue = {
   description: "",
 };
 
-export default function ExperienceInput() {
+export default function ExperiencesInput() {
   const { control, setValue, watch } = useFormContext<CvValues>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "experience",
+    name: "experiences",
   });
 
-  const handleAddExperience = () => append(initialValue);
+  const handleAddExperiences = () => append(initialValue);
 
-  const handleRemoveExperience = (index: number) => {
+  const handleRemoveExperiences = (index: number) => {
     remove(index);
   };
 
@@ -50,9 +50,9 @@ export default function ExperienceInput() {
     <Card className="p-5">
       <div className="flex justify-between">
         <div className="">
-          <h2 className="text-lg font-bold mb-4">Experiences</h2>
+          <h2 className="text-lg font-bold mb-4">Experiencess</h2>
           <p className="text-sm text-gray-600 mb-6">
-            Define all of your experience
+            Define all of your experiences
           </p>
         </div>
       </div>
@@ -61,11 +61,11 @@ export default function ExperienceInput() {
         {fields.map((item, index) => (
           <div key={item.id} className="flex flex-col gap-2">
             <div className="flex justify-between">
-              <h2>Experience {index + 1}</h2>
+              <h2>Experiences {index + 1}</h2>
               <Button
                 type="button"
                 variant="destructive"
-                onClick={() => handleRemoveExperience(index)}
+                onClick={() => handleRemoveExperiences(index)}
                 className="w-fit"
               >
                 <XCircle />
@@ -73,7 +73,7 @@ export default function ExperienceInput() {
             </div>
             <div>
               <FormField
-                name={`experience.${index}.company`}
+                name={`experiences.${index}.company`}
                 control={control}
                 render={({ field }) => (
                   <FormItem>
@@ -88,7 +88,7 @@ export default function ExperienceInput() {
             </div>
             <div>
               <FormField
-                name={`experience.${index}.position`}
+                name={`experiences.${index}.position`}
                 control={control}
                 render={({ field }) => (
                   <FormItem>
@@ -104,7 +104,7 @@ export default function ExperienceInput() {
             <div className="flex gap-2 items-end w-full">
               <div className="flex-1">
                 <FormField
-                  name={`experience.${index}.startDate`}
+                  name={`experiences.${index}.startDate`}
                   control={control}
                   render={({ field }) => (
                     <FormItem>
@@ -148,7 +148,7 @@ export default function ExperienceInput() {
               </div>
               <div className="flex-1">
                 <FormField
-                  name={`experience.${index}.endDate`}
+                  name={`experiences.${index}.endDate`}
                   control={control}
                   render={({ field }) => (
                     <FormItem>
@@ -158,7 +158,7 @@ export default function ExperienceInput() {
                           <PopoverTrigger asChild>
                             <Button
                               variant={"outline"}
-                              disabled={watch(`experience.${index}.current`)}
+                              disabled={watch(`experiences.${index}.current`)}
                               className={cn(
                                 "w-full justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
@@ -195,7 +195,7 @@ export default function ExperienceInput() {
             <div className="flex items-center justify-between">
               <span
                 className={`text-sm ${
-                  watch(`experience.${index}.current`)
+                  watch(`experiences.${index}.current`)
                     ? "font-semibold"
                     : "text-muted-foreground"
                 }`}
@@ -203,18 +203,18 @@ export default function ExperienceInput() {
                 Current
               </span>
               <Switch
-                checked={watch(`experience.${index}.current`)}
+                checked={watch(`experiences.${index}.current`)}
                 onCheckedChange={() => {
                   setValue(
-                    `experience.${index}.current`,
-                    !watch(`experience.${index}.current`)
+                    `experiences.${index}.current`,
+                    !watch(`experiences.${index}.current`)
                   );
                 }}
               />
             </div>
             <div>
               <FormField
-                name={`experience.${index}.description`}
+                name={`experiences.${index}.description`}
                 control={control}
                 render={({}) => (
                   <FormItem>
@@ -224,7 +224,7 @@ export default function ExperienceInput() {
                         init={editorInit}
                         onChange={(e) => {
                           setValue(
-                            `experience.${index}.description`,
+                            `experiences.${index}.description`,
                             e.target.getContent()
                           );
                         }}
@@ -237,8 +237,12 @@ export default function ExperienceInput() {
             </div>
           </div>
         ))}
-        <Button type="button" variant="secondary" onClick={handleAddExperience}>
-          Add New Experience
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={handleAddExperiences}
+        >
+          Add New Experiences
         </Button>
       </div>
     </Card>

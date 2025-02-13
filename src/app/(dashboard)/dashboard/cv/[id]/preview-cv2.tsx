@@ -146,7 +146,9 @@ export default function PreviewCv2({ cv }: Props) {
 
         {/* Experience */}
         <View style={styles.section}>
-          <Text style={styles.subHeader}>EXPERIENCE & CAREER HISTORY</Text>
+          {(cv?.experiences.length !== 0 || cv?.projects.length !== 0) && (
+            <Text style={styles.subHeader}>EXPERIENCE & CAREER HISTORY</Text>
+          )}
           {cv?.experiences.length !== 0 &&
             cv?.experiences.map((exp, index) => (
               <View key={index} style={{ marginVertical: 5 }}>
@@ -162,7 +164,7 @@ export default function PreviewCv2({ cv }: Props) {
                     <Text style={styles.sectionHeader}>
                       {format(new Date(exp.startDate), "MMMM yyyy")} -{" "}
                       {!exp.current
-                        ? format(new Date(exp.endDate), "MMMM yyyy")
+                        ? format(exp.endDate || new Date(), "MMMM yyyy")
                         : "Present"}
                     </Text>
                   </View>
@@ -205,7 +207,7 @@ export default function PreviewCv2({ cv }: Props) {
                     <Text style={styles.sectionHeader}>
                       {format(new Date(project.startDate), "MMMM yyyy")} -{" "}
                       {!project.current
-                        ? format(new Date(project.endDate), "MMMM yyyy")
+                        ? format(project.endDate || new Date(), "MMMM yyyy")
                         : "Present"}
                     </Text>
                   </View>
@@ -256,7 +258,7 @@ export default function PreviewCv2({ cv }: Props) {
                     <Text style={styles.sectionHeader}>
                       {format(new Date(edu.startDate), "MMMM yyyy")} -{" "}
                       {!edu.current
-                        ? format(new Date(edu.endDate), "MMMM yyyy")
+                        ? format(edu.endDate || new Date(), "MMMM yyyy")
                         : "Present"}
                     </Text>
                   </View>
@@ -268,7 +270,10 @@ export default function PreviewCv2({ cv }: Props) {
 
         {/* Certifications, Languages */}
         <View style={styles.section}>
-          <Text style={styles.subHeader}>Certifications & Languages</Text>
+          {cv?.certifications.length !== 0 ||
+            (cv?.languages.length !== 0 && (
+              <Text style={styles.subHeader}>Certifications & Languages</Text>
+            ))}
           {/* CERTIFICATIONS */}
           <View
             style={{
@@ -279,15 +284,17 @@ export default function PreviewCv2({ cv }: Props) {
               marginVertical: 5,
             }}
           >
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 12,
-                fontFamily: "Times-Bold",
-              }}
-            >
-              Certifications:{" "}
-            </Text>
+            {cv?.certifications.length !== 0 && (
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                  fontFamily: "Times-Bold",
+                }}
+              >
+                Certifications:{" "}
+              </Text>
+            )}
             {cv?.certifications.map((certificate, index) => (
               <Text key={index} style={styles.listItem}>
                 {certificate.name} ({certificate.score}){" "}
@@ -306,15 +313,17 @@ export default function PreviewCv2({ cv }: Props) {
               marginVertical: 5,
             }}
           >
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 12,
-                fontFamily: "Times-Bold",
-              }}
-            >
-              Languages:{" "}
-            </Text>
+            {cv?.languages.length !== 0 && (
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                  fontFamily: "Times-Bold",
+                }}
+              >
+                Languages:{" "}
+              </Text>
+            )}
             {cv?.languages.map((lang, index) => (
               <Text key={index} style={styles.listItem}>
                 {lang.name} ({lang.proficiency}){" "}
