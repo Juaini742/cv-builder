@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CV Builder
 
-## Getting Started
+CV Builder is a web application that allows users to create, customize, and export professional CVs. Built using **Next.js 15**, **React 19**, **Tailwind CSS**, and other modern technologies, this application provides an intuitive and user-friendly experience.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **User Authentication**: Secure authentication using **NextAuth.js** with Prisma as the database adapter.
+- **Drag-and-Drop CV Customization**: Easily arrange sections of your CV.
+- **Rich Text Editor**: Format text with **TinyMCE** for better content presentation.
+- **PDF Export**: Convert your CV to **PDF** using **@react-pdf/renderer**.
+- **Cloud Storage**: Upload and manage images via **Cloudinary**.
+- **Dark Mode Support**: Seamless light/dark mode experience.
+- **State Management**: Efficient state handling using **Zustand**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 15
+- **Frontend**: React 19, Tailwind CSS, Framer Motion
+- **State Management**: Zustand
+- **Database**: Prisma with PostgreSQL
+- **Authentication**: NextAuth.js
+- **File Uploads**: Cloudinary
+- **Forms & Validation**: React Hook Form, Zod
+- **PDF Generation**: @react-pdf/renderer
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v18 or later)
+- PostgreSQL database
+- Cloudinary account for file uploads (optional)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:
 
-## Deploy on Vercel
+   ```sh
+   git clone https://github.com/your-username/cv-builder.git
+   cd cv-builder
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```sh
+   npm install --force
+   ```
+
+3. Set up the environment variables in a `.env` file:
+
+   ```env
+   DATABASE_URL="your_database_url"
+   CLOUDINARY_CLOUD_NAME="your_cloud_name"
+   CLOUDINARY_API_KEY="your_api_key"
+   CLOUDINARY_API_SECRET="your_api_secret"
+   AUTH_SECRET="your_secret_key"
+   NEXT_PUBLIC_EDITOR_SECRET="your_public_editor_key"
+   AUTH_GOOGLE_ID="your_google_id"
+   AUTH_GOOGLE_SECRET="your_google_secret"
+   ```
+
+4. Apply database migrations:
+
+   ```sh
+   npx prisma migrate dev
+   ```
+
+5. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+## Scripts
+
+- `npm run dev` – Start the development server
+- `npm run build` – Build the application
+- `npm run start` – Run the production server
+- `npm run lint` – Run ESLint for code quality checks
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For questions or collaborations, feel free to reach out at [juaini742@gmail.com].

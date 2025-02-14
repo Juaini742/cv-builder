@@ -16,7 +16,7 @@ export default function ArticleSection() {
           inView
         >
           <video
-            src="https://res.cloudinary.com/dixdqxpza/video/upload/v1738998153/Screencast_from_2025-02-08_14-01-25_smpuee.webm"
+            src="https://res.cloudinary.com/dc6cewocz/video/upload/v1739500616/document_6158916487521245622_cnmqkh.mp4"
             autoPlay
             loop
             muted

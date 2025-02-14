@@ -30,15 +30,6 @@ export default function HeroSection() {
             <br className="hidden md:block" /> With Ease
           </h1>
         </BlurFade>
-        {/* <TextAnimate
-          animation="blurInUp"
-          by="character"
-          className="text-base md:text-lg lg:text-xl text-gray-z00 mt-4 max-w-lg md:max-w-xl"
-        >
-          Create a stunning, professional resume effortlessly and land your
-          dream job with our AI-powered CV Builder.
-        </TextAnimate> */}
-
         <BlurFade
           delay={0.25}
           className="text-base md:text-lg lg:text-xl text-gray-z00 mt-4 max-w-lg md:max-w-xl"
@@ -67,26 +58,26 @@ export default function HeroSection() {
           </BlurFade>
         </div>
 
-        <div className="mt-8 mb-10 md:mb-0 flex flex-col md:flex-row justify-center md:justify-start gap-4 md:gap-6">
+        <ul className="mt-8 mb-10 md:mb-0 flex flex-col md:flex-row justify-center md:justify-start gap-4 md:gap-6">
           <BlurFade delay={0.25}>
-            <div className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
+            <li className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
               <CheckCircle className="text-green-500 w-5 h-5" />
               AI-Optimized Resume
-            </div>
+            </li>
           </BlurFade>
           <BlurFade delay={0.35}>
-            <div className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
+            <li className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
               <CheckCircle className="text-green-500 w-5 h-5" />
               Job-Ready Templates
-            </div>
+            </li>
           </BlurFade>
           <BlurFade delay={0.45}>
-            <div className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
+            <li className="flex items-center gap-2 text-gray-700 text-sm md:text-base">
               <CheckCircle className="text-green-500 w-5 h-5" />
               Export to PDF
-            </div>
+            </li>
           </BlurFade>
-        </div>
+        </ul>
       </div>
 
       <div className="mb-10 md:mt-0 flex w-full md:w-1/2 h-full md:justify-center items-center md:mb-0 relative">
@@ -136,6 +127,30 @@ export default function HeroSection() {
           </div>
         </BlurFade>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "AI-Powered CV Builder",
+            url: "https://yourcvbuilder.com",
+            image:
+              "https://res.cloudinary.com/dc6cewocz/image/upload/v1739498742/logo-white_il61g0.png",
+            description:
+              "Build a professional and job-ready CV effortlessly with our AI-powered CV Builder.",
+            publisher: {
+              "@type": "Organization",
+              name: "Your CV Builder",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://res.cloudinary.com/dc6cewocz/image/upload/v1739498742/logo-white_il61g0.png",
+              },
+            },
+          }),
+        }}
+      />
     </section>
   );
 }
