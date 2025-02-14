@@ -128,7 +128,7 @@ const RenderDownloadPDF1 = ({ cv }: { cv: ICv }) => {
           )}
         </Button>
       )} */}
-      <Button className="cursor-not-allowed bg-gray-400">
+      <Button className="bg-gray-400">
         <FileDown className="size-6" />
       </Button>
     </PDFDownloadLink>
@@ -141,7 +141,7 @@ const RenderDownloadPDF2 = ({ cv }: { cv: ICv }) => {
       document={<PreviewCv2 cv={cv} />}
       fileName={`${cv.fullName}.pdf`}
     >
-      <Button className="cursor-not-allowed bg-gray-400">
+      <Button className="bg-gray-400">
         <FileDown className="size-6" />
       </Button>
     </PDFDownloadLink>

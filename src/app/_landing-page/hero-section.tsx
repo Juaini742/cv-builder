@@ -14,7 +14,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { ResumeSVGImg } from "@/assets";
-import { TextAnimate } from "@/components/magicui/text-animate";
 import { useRouter } from "next/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
@@ -31,14 +30,22 @@ export default function HeroSection() {
             <br className="hidden md:block" /> With Ease
           </h1>
         </BlurFade>
-        <TextAnimate
+        {/* <TextAnimate
           animation="blurInUp"
           by="character"
-          className="text-base md:text-lg lg:text-xl text-gray-600 mt-4 max-w-lg md:max-w-xl"
+          className="text-base md:text-lg lg:text-xl text-gray-z00 mt-4 max-w-lg md:max-w-xl"
         >
           Create a stunning, professional resume effortlessly and land your
           dream job with our AI-powered CV Builder.
-        </TextAnimate>
+        </TextAnimate> */}
+
+        <BlurFade
+          delay={0.25}
+          className="text-base md:text-lg lg:text-xl text-gray-z00 mt-4 max-w-lg md:max-w-xl"
+        >
+          Create a stunning,professional resume effortlessly and land your dream
+          job with our AI-powered CV Builder
+        </BlurFade>
 
         <div className="mt-6 flex justify-center md:justify-start gap-4">
           <BlurFade delay={0.25}>

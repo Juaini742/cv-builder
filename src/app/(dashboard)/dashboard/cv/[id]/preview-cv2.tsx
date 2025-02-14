@@ -270,10 +270,9 @@ export default function PreviewCv2({ cv }: Props) {
 
         {/* Certifications, Languages */}
         <View style={styles.section}>
-          {cv?.certifications.length !== 0 ||
-            (cv?.languages.length !== 0 && (
-              <Text style={styles.subHeader}>Certifications & Languages</Text>
-            ))}
+          {(cv?.certifications.length !== 0 || cv?.languages.length !== 0) && (
+            <Text style={styles.subHeader}>Certifications & Languages</Text>
+          )}
           {/* CERTIFICATIONS */}
           <View
             style={{
