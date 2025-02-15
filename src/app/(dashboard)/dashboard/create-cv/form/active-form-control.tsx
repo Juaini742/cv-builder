@@ -16,12 +16,12 @@ const formSections = [
   { key: "basic", label: "Basic Info", required: true },
   { key: "summary", label: "Summary", required: true },
   { key: "skill", label: "Skills", required: true },
-  { key: "experience", label: "Experience", required: false },
+  { key: "experiences", label: "Experience", required: false },
   { key: "projects", label: "Project", required: false },
-  { key: "education", label: "Education", required: false },
-  { key: "certification", label: "Certifications", required: false },
+  { key: "educations", label: "Education", required: false },
+  { key: "certifications", label: "Certifications", required: false },
   // { key: "hobby", label: "Hobbies", required: false },
-  { key: "language", label: "Languages", required: false },
+  { key: "languages", label: "Languages", required: false },
 ];
 
 export default function ActiveFormControl({

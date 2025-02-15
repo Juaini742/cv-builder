@@ -47,7 +47,7 @@ export default function FooterSection() {
           <div className="flex items-center gap-2">
             <Github />
             <a
-              href="https://github.com/your-repository"
+              href="https://github.com/Juaini742/cv-builder.git"
               target="_blank"
               className="hover:underline"
             >

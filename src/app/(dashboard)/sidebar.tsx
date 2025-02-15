@@ -56,12 +56,12 @@ export function SidebarDashboard({
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1  mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto overflow-hidden",
         "h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+        <SidebarBody className="justify-between bg-white gap-10 border-l border-neutral-200 rounded-tr-xl">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -145,7 +145,7 @@ export const LogoIcon = () => {
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
     <ScrollArea className="w-full h-full">
-      <div className="h-screen rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900">
+      <div className="h-screen rounded-tl-2xl dark:bg-neutral-900">
         <div className="flex-1 h-full">
           <div className="p-2 md:p-10 rounded-tl-2xl flex-1 flex flex-col gap-2 w-full h-full relative z-20">
             {children}

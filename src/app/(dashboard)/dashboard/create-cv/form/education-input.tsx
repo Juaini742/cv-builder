@@ -24,9 +24,18 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { CvValues } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { closestCorners, DndContext } from "@dnd-kit/core";
+import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { format } from "date-fns";
-import { CalendarIcon, XCircle } from "lucide-react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { CalendarIcon, GripVertical, XCircle } from "lucide-react";
+import {
+  Control,
+  useFieldArray,
+  useFormContext,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
+import { CSS } from "@dnd-kit/utilities";
 
 const degrees = [
   "Kindergarten",
@@ -49,11 +58,33 @@ const initialValue = {
 };
 
 export default function EducationsInput() {
-  const { control, setValue, watch } = useFormContext<CvValues>();
+  const { control, setValue, watch, getValues } = useFormContext<CvValues>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "educations",
   });
+
+  const handleDrag = (event: {
+    active: { id: string | number };
+    over: { id: string | number } | null;
+  }) => {
+    if (!event.active || !event.over) return;
+
+    const { active, over } = event;
+
+    const oldIndex = fields.findIndex((item) => item.id === active.id);
+    const newIndex = fields.findIndex((item) => item.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const currentValues = getValues().educations.map((item) => ({
+        ...item,
+      }));
+
+      const updateList = arrayMove(currentValues, oldIndex, newIndex);
+
+      setValue("educations", updateList);
+    }
+  };
 
   const handleAddEducations = () => append(initialValue);
 
@@ -72,183 +103,240 @@ export default function EducationsInput() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        {fields.map((item, index) => (
-          <div key={item.id} className="flex flex-col gap-2">
-            <div className="flex justify-between">
-              <h2>Educations {index + 1}</h2>
-              <Button
-                type="button"
-                variant="destructive"
-                onClick={() => handleRemoveEducations(index)}
-                className="w-fit"
-              >
-                <XCircle />
-              </Button>
-            </div>
-            <div>
-              <FormField
-                name={`educations.${index}.degree`}
+      <DndContext collisionDetection={closestCorners} onDragEnd={handleDrag}>
+        <SortableContext items={fields.map((item) => item.id)}>
+          <div className="flex flex-col gap-2">
+            {fields.map((item, index) => (
+              <InputItem
+                key={item.id}
+                id={item.id}
+                handleRemoveEducations={() => handleRemoveEducations(index)}
+                index={index}
                 control={control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Degree</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={(value: string) =>
-                          setValue(`educations.${index}.degree`, value)
-                        }
-                        value={field.value}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a degree" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {degrees.map((degree) => (
-                            <SelectItem key={degree} value={degree}>
-                              {degree}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                setValue={setValue}
+                watch={watch}
               />
-            </div>
-            <div>
-              <FormField
-                name={`educations.${index}.university`}
-                control={control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>University</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="University" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex gap-2 items-end w-full">
-              <div className="flex-1">
-                <FormField
-                  name={`educations.${index}.startDate`}
-                  control={control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Start Date</FormLabel>
-                      <FormControl>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full justify-start text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              <CalendarIcon className="mr-2" />
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={
-                                field.value ? new Date(field.value) : undefined
-                              }
-                              onSelect={(date) =>
-                                field.onChange(new Date(date as Date))
-                              }
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex-1">
-                <FormField
-                  name={`educations.${index}.endDate`}
-                  control={control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>End Date</FormLabel>
-                      <FormControl>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={"outline"}
-                              disabled={watch(`educations.${index}.current`)}
-                              className={cn(
-                                "w-full justify-start text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              <CalendarIcon className="mr-2" />
-                              {field.value ? (
-                                format(new Date(field.value), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={
-                                field.value ? new Date(field.value) : undefined
-                              }
-                              onSelect={(date) =>
-                                field.onChange(new Date(date as Date))
-                              }
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span
-                className={`text-sm ${
-                  watch(`educations.${index}.current`)
-                    ? "font-semibold"
-                    : "text-muted-foreground"
-                }`}
-              >
-                Current
-              </span>
-              <Switch
-                checked={watch(`educations.${index}.current`)}
-                onCheckedChange={() => {
-                  setValue(
-                    `educations.${index}.current`,
-                    !watch(`educations.${index}.current`)
-                  );
-                }}
-              />
-            </div>
+            ))}
           </div>
-        ))}
-        <Button type="button" variant="secondary" onClick={handleAddEducations}>
-          Add New Educations
-        </Button>
-      </div>
+        </SortableContext>
+      </DndContext>
+      <Button
+        type="button"
+        variant="secondary"
+        className="w-full mt-3"
+        onClick={handleAddEducations}
+      >
+        Add New Educations
+      </Button>
     </Card>
   );
 }
+
+interface InputItemProps {
+  id: number | string;
+  handleRemoveEducations: () => void;
+  control: Control<CvValues>;
+  setValue: UseFormSetValue<CvValues>;
+  watch: UseFormWatch<CvValues>;
+  index: number;
+}
+
+const InputItem = ({
+  id,
+  handleRemoveEducations,
+  control,
+  watch,
+  setValue,
+  index,
+}: InputItemProps) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className="flex flex-col gap-2">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            variant="ghost"
+            {...attributes}
+            {...listeners}
+            className="cursor-grab"
+          >
+            <GripVertical />
+          </Button>
+          <h2>Hold to drag</h2>
+        </div>
+        <Button
+          type="button"
+          variant="destructive"
+          onClick={handleRemoveEducations}
+        >
+          <XCircle />
+        </Button>
+      </div>
+      <div>
+        <FormField
+          name={`educations.${index}.degree`}
+          control={control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Degree</FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={(value: string) =>
+                    setValue(`educations.${index}.degree`, value)
+                  }
+                  value={field.value}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a degree" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {degrees.map((degree) => (
+                      <SelectItem key={degree} value={degree}>
+                        {degree}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+      <div>
+        <FormField
+          name={`educations.${index}.university`}
+          control={control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>University</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="University" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+      <div className="flex gap-2 items-end w-full">
+        <div className="flex-1">
+          <FormField
+            name={`educations.${index}.startDate`}
+            control={control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Start Date</FormLabel>
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2" />
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
+                        onSelect={(date) =>
+                          field.onChange(new Date(date as Date))
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex-1">
+          <FormField
+            name={`educations.${index}.endDate`}
+            control={control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>End Date</FormLabel>
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        disabled={watch(`educations.${index}.current`)}
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2" />
+                        {field.value ? (
+                          format(new Date(field.value), "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
+                        onSelect={(date) =>
+                          field.onChange(new Date(date as Date))
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <span
+          className={`text-sm ${
+            watch(`educations.${index}.current`)
+              ? "font-semibold"
+              : "text-muted-foreground"
+          }`}
+        >
+          Current
+        </span>
+        <Switch
+          checked={watch(`educations.${index}.current`)}
+          onCheckedChange={() => {
+            setValue(
+              `educations.${index}.current`,
+              !watch(`educations.${index}.current`)
+            );
+          }}
+        />
+      </div>
+    </div>
+  );
+};

@@ -8,6 +8,7 @@ export default async function page() {
   return (
     <div>
       <CvForm cv={cv} />
+      <div className="my-10" />
     </div>
   );
 }

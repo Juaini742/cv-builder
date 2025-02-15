@@ -4,7 +4,6 @@ import { Form } from "@/components/ui/form";
 import { CvSchema, CvValues } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
-import ExperienceInput from "./experience-input";
 import CertificationInput from "./certification-input";
 import HobbyInput from "./hobby-input";
 import LanguageInput from "./language-input";
@@ -32,6 +31,7 @@ import {
 import { useSingleCv } from "@/hooks/use-singleCv";
 import DialogContainer from "@/components/custom/DialogContainer";
 import LoadingScreen from "@/components/custom/LoadingScreen";
+import ExperienceInput from "./experience-input";
 
 export const initialActiveForm = {
   basic: true,

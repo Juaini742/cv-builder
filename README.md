@@ -36,7 +36,7 @@ CV Builder is a web application that allows users to create, customize, and expo
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-username/cv-builder.git
+   git clone https://github.com/Juaini742/cv-builder.git
    cd cv-builder
    ```
 
