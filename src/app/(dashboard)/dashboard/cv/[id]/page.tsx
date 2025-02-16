@@ -25,6 +25,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
+import AlertDashboard from "@/app/(dashboard)/dashboard/alert-dashboard";
 
 export default function CVDetail() {
   const router = useRouter();
@@ -36,49 +37,56 @@ export default function CVDetail() {
     return <LoadingComponent />;
   }
 
-  console.log(cv);
-
   return (
-    <div className="flex flex-col items-center relative">
-      <Card className="fixed w-fit bottom-10 p-3 flex gap-2">
-        <div className="flex gap-3 items-center">
-          <TooltipWrapper label="Back to Dashboard">
-            <Button onClick={() => router.push("/dashboard")} variant="outline">
-              <ChevronsLeft className="size-5" />
-            </Button>
-          </TooltipWrapper>
+    <>
+      <AlertDashboard />
+      <div className="flex flex-col items-center relative">
+        <Card className="fixed w-fit bottom-10 p-3 flex gap-2">
+          <div className="flex gap-3 items-center">
+            <TooltipWrapper label="Back to Dashboard">
+              <Button
+                onClick={() => router.push("/dashboard")}
+                variant="outline"
+              >
+                <ChevronsLeft className="size-5" />
+              </Button>
+            </TooltipWrapper>
 
-          <TooltipWrapper label="Edit CV">
-            <Button
-              onClick={() => router.push(`/dashboard/update-cv/${cv.id}`)}
-              variant="warning"
-            >
-              <SquarePen className="size-5" />
-            </Button>
-          </TooltipWrapper>
-        </div>
+            <TooltipWrapper label="Edit CV">
+              <Button
+                onClick={() => router.push(`/dashboard/update-cv/${cv.id}`)}
+                variant="warning"
+              >
+                <SquarePen className="size-5" />
+              </Button>
+            </TooltipWrapper>
+          </div>
 
-        <div className="flex gap-3 items-center">
-          <Select onValueChange={setType} defaultValue={type}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Select Template" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ATS1">ATS Template 1</SelectItem>
-              <SelectItem value="ATS2">ATS Template 2</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex gap-3 items-center">
+            <Select onValueChange={setType} defaultValue={type}>
+              <SelectTrigger className="w-40">
+                <SelectValue placeholder="Select Template" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ATS1">ATS Template 1</SelectItem>
+                <SelectItem value="ATS2">ATS Template 2</SelectItem>
+              </SelectContent>
+            </Select>
 
-          <TooltipWrapper label="Download PDF">
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <RenderSelectedDownloadPDF type={type} cv={cv} />
-            </motion.div>
-          </TooltipWrapper>
-        </div>
-      </Card>
+            <TooltipWrapper label="Download PDF">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <RenderSelectedDownloadPDF type={type} cv={cv} />
+              </motion.div>
+            </TooltipWrapper>
+          </div>
+        </Card>
 
-      <RenderSelectedTemplate type={type} cv={cv} />
-    </div>
+        <RenderSelectedTemplate type={type} cv={cv} />
+      </div>
+    </>
   );
 }
 

@@ -60,7 +60,7 @@ export default function ExperienceInput() {
     useSensor(PointerSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        distance: 10,
+        distance: 5,
       },
     })
   );
