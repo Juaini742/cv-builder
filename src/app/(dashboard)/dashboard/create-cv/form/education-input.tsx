@@ -75,7 +75,7 @@ export default function EducationsInput() {
     useSensor(PointerSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        distance: 10,
+        distance: 5,
       },
     })
   );

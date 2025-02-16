@@ -6,6 +6,7 @@ import { GetCv } from "@/server-hooks/Get-CV";
 import DashboardHeader from "./dashboard-header";
 import DashboardStats from "./dashboard-stats";
 import EmptyCv from "./empty-cv";
+import AlertDashboard from "./alert-dashboard";
 
 export default async function page() {
   const user = await auth();
@@ -13,6 +14,7 @@ export default async function page() {
 
   return (
     <div className="flex flex-col gap-5">
+      <AlertDashboard />
       <DashboardHeader user={user} />
       <DashboardStats totalCvs={cvs.length.toString()} />
       {cvs.length > 0 ? <DashboardCvList cv={cvs} /> : <EmptyCv />}

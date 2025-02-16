@@ -63,7 +63,7 @@ export default function ProjectInput() {
     useSensor(PointerSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        distance: 10,
+        distance: 5,
       },
     })
   );
