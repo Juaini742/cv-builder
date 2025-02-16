@@ -24,7 +24,14 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { CvValues } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { closestCorners, DndContext } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { format } from "date-fns";
 import { CalendarIcon, GripVertical, XCircle } from "lucide-react";
@@ -63,6 +70,15 @@ export default function EducationsInput() {
     control,
     name: "educations",
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
+  );
 
   const handleDrag = (event: {
     active: { id: string | number };
@@ -103,7 +119,11 @@ export default function EducationsInput() {
         </div>
       </div>
 
-      <DndContext collisionDetection={closestCorners} onDragEnd={handleDrag}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragEnd={handleDrag}
+      >
         <SortableContext items={fields.map((item) => item.id)}>
           <div className="flex flex-col gap-2">
             {fields.map((item, index) => (
@@ -155,6 +175,7 @@ const InputItem = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: "none",
   };
 
   return (

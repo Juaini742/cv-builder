@@ -1,4 +1,11 @@
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  PointerSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
@@ -52,6 +59,15 @@ export default function ExperienceInput() {
     name: "experiences",
   });
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
+  );
+
   const handleDrag = (event: {
     active: { id: string | number };
     over: { id: string | number } | null;
@@ -89,7 +105,11 @@ export default function ExperienceInput() {
           </p>
         </div>
       </div>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDrag}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDrag}
+      >
         <SortableContext items={fields.map((item) => item.id)}>
           <div className="flex flex-col gap-3">
             {fields.map((item, index) => (
@@ -141,6 +161,7 @@ const InputItem = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: "none",
   };
   return (
     <div ref={setNodeRef} style={style} className="flex flex-col gap-2">

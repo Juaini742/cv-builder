@@ -35,7 +35,14 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
-import { closestCenter, DndContext } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 
 const degrees = [
   "Kindergarten",
@@ -63,6 +70,15 @@ export default function EducationInput() {
     control,
     name: "educations",
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
+  );
 
   const handleDrag = (event: {
     active: { id: string | number };
@@ -102,7 +118,11 @@ export default function EducationInput() {
           </p>
         </div>
       </div>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDrag}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDrag}
+      >
         <SortableContext items={fields.map((item) => item.id)}>
           <div className="flex flex-col gap-2">
             {fields.map((item, index) => (
@@ -154,7 +174,9 @@ const InputItem = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: "none",
   };
+
   return (
     <div ref={setNodeRef} style={style} className="flex flex-col gap-2">
       <div className="flex justify-between items-center">

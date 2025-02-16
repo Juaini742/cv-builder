@@ -56,7 +56,7 @@ export default function DashboardCvList({ cv }: { cv: ICv[] }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
         >
-          <Card className="shadow-md border border-gray-200 rounded-lg overflow-hidden">
+          <Card className="mb-10 shadow-md border border-gray-200 rounded-lg overflow-hidden">
             <CardHeader className="relative">
               <Image
                 src={image}
